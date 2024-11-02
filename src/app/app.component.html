@@ -1,0 +1,138 @@
+<router-outlet></router-outlet>
+
+<!-- Wrapper para centralização -->
+<div class="wrapper">
+
+  <!-- Formulário de Dados do Emissor -->
+  <section class="emissor-section">
+    <h2 class="section-title">Dados do Emissor</h2>
+    <form class="form-style" (ngSubmit)="salvarEmissor()">
+      <label>Nome</label>
+      <input type="text" [(ngModel)]="emissor.nome" name="emissorNome" required />
+
+      <label>Telefone</label>
+      <input type="tel" [(ngModel)]="emissor.telefone" name="emissorTelefone" required />
+
+      <label>E-mail</label>
+      <input type="email" [(ngModel)]="emissor.email" name="emissorEmail" required />
+
+      <label>Endereço</label>
+      <input type="text" [(ngModel)]="emissor.endereco" name="emissorEndereco" required />
+
+      <label>CNPJ</label>
+      <input type="text" [(ngModel)]="emissor.cnpj" name="emissorCnpj" required />
+      
+      <button type="submit" class="save-emissor-btn">Salvar Emissor</button>
+    </form>
+  </section>
+
+  <!-- Formulário de Dados do Cliente -->
+  <section class="cliente-section">
+    <h2 class="section-title">Dados do Cliente</h2>
+    <form class="form-style" (ngSubmit)="salvarCliente()">
+      <label>Nome</label>
+      <input type="text" [(ngModel)]="cliente.nome" name="clienteNome" required />
+
+      <label>Endereço</label>
+      <input type="text" [(ngModel)]="cliente.endereco" name="clienteEndereco" required />
+
+      <label>Telefone</label>
+      <input type="tel" [(ngModel)]="cliente.telefone" name="clienteTelefone" required />
+
+      <label>E-mail</label>
+      <input type="email" [(ngModel)]="cliente.email" name="clienteEmail" required />
+      
+      <button type="submit" class="save-client-btn">Salvar Cliente</button>
+    </form>
+  </section>
+
+  <!-- Seção de Produtos/Serviços -->
+  <section class="product-service-section">
+    <h2 class="section-title">Produto/Serviço</h2>
+    <form class="product-form" (ngSubmit)="salvarProduto()">
+      <label for="nome">Nome:</label>
+      <input id="nome" [(ngModel)]="produto.nome" name="produtoNome" required />
+
+      <label for="descricao">Descrição:</label>
+      <input id="descricao" [(ngModel)]="produto.descricao" name="produtoDescricao" required />
+
+      <label for="quantidade">Quantidade:</label>
+      <input type="number" id="quantidade" [(ngModel)]="produto.quantidade" name="produtoQuantidade" required />
+
+      <label for="preco">Preço:</label>
+      <input type="number" id="preco" [(ngModel)]="produto.preco" name="produtoPreco" required />
+
+      <button type="submit" class="save-btn">Salvar Produto</button>
+    </form>
+  </section>
+
+  <!-- Seção de Orçamento -->
+  <section>
+    <h2 class="section-title">Orçamento</h2>
+  
+    <!-- Dados do Emissor -->
+    <div class="info-section">
+      <p><strong>Emissor:</strong> {{ orcamento.emissor.nome }}</p>
+      <p><strong>Telefone:</strong> {{ orcamento.emissor.telefone }}</p>
+      <p><strong>E-mail:</strong> {{ orcamento.emissor.email }}</p>
+      <p><strong>Endereço:</strong> {{ orcamento.emissor.endereco }}</p>
+      <p><strong>CNPJ:</strong> {{ orcamento.emissor.cnpj }}</p>
+    </div>
+  
+    <!-- Dados do Cliente -->
+    <div class="info-section">
+      <p><strong>Cliente:</strong> {{ orcamento.cliente.nome }}</p>
+      <p><strong>Endereço:</strong> {{ orcamento.cliente.endereco }}</p>
+      <p><strong>Telefone:</strong> {{ orcamento.cliente.telefone }}</p>
+      <p><strong>E-mail:</strong> {{ orcamento.cliente.email }}</p>
+    </div>
+  
+    <!-- Tabela de Produtos -->
+    <h3 class="section-title">Produtos</h3>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Preço Unitário</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produto of orcamento.produtos">
+          <td>{{ produto.nome }}</td>
+          <td>{{ produto.descricao }}</td>
+          <td>{{ produto.quantidade }}</td>
+          <td>{{ produto.preco | currency }}</td>
+          <td>{{ (produto.quantidade * produto.preco) | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Total e Observação -->
+<p class="total">Total: {{ orcamento.total | currency }}</p>
+
+<div class="observacao">
+  <label for="observacao"><strong>Observação:</strong></label>
+  <textarea id="observacao" [(ngModel)]="orcamento.observacao" rows="4" placeholder="Digite suas observações aqui..."></textarea>
+</div>
+
+  
+    <!-- Botões de Ação -->
+    
+    <button (click)="gerarRelatorioPDF()">Gerar PDF</button>
+  </section>
+
+  <!-- Campo para upload do logo -->
+  <section class="logo-section">
+    <h2 class="section-title">Adicionar Logo</h2>
+    <input type="file" (change)="onLogoSelected($event)" accept="image/*" />
+    
+    <!-- Exibir o logo  -->
+    <div *ngIf="logoUrl">
+      <img [src]="logoUrl" alt="Logo" class="logo" />
+    </div>
+  </section>
+
+</div>

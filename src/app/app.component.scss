@@ -1,0 +1,232 @@
+/* Estilos globais */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #001f3f;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Seção de Produtos/Serviços */
+.product-service-section {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #4CAF50;
+        padding-bottom: 5px;
+    }
+
+    .product-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+
+            &:focus {
+                border-color: #4CAF50;
+            }
+        }
+
+        .save-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: center;
+            margin-top: 20px;
+
+            &:hover {
+                background-color: #45a049;
+            }
+        }
+    }
+}
+
+/* Títulos de Seção */
+.section-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Informações do Emissor e Cliente */
+.info-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+
+    p {
+        margin: 5px 0;
+        font-size: 16px;
+
+        strong {
+            color: #555;
+        }
+    }
+}
+
+/* Formulário de Emissor e Cliente */
+.form-style {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    input {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s;
+
+        &:focus {
+            border-color: #4CAF50;
+        }
+    }
+
+    .save-emissor-btn, .save-client-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: #45a049;
+        }
+    }
+}
+
+/* Estilização para a Tabela de Produtos */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+    }
+
+    td {
+        background-color: #f9f9f9;
+    }
+}
+
+/* Total e Observação */
+.total {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Estilização do campo de observações */
+.observacao {
+    margin-top: 20px;
+  
+    label {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+  
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      outline: none;
+      transition: border-color 0.3s;
+  
+      &:focus {
+        border-color: #4CAF50;
+      }
+    }
+  }
+  
+.logo {
+    display: block;
+    max-width: 100%; /* Limita o tamanho da imagem ao tamanho do contêiner */
+    height: auto;    /* Mantém a proporção da imagem */
+    margin: 20px auto; /* Espaço acima e abaixo da imagem e centralização */
+}
+
+/* Botões */
+button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #45a049;
+    }
+    
+}

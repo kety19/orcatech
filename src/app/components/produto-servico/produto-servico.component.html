@@ -1,0 +1,16 @@
+<form>
+    <label for="nome">Nome:</label>
+    <input id="nome" [(ngModel)]="produto.nome" name="nome" required />
+  
+    <label for="descricao">Descrição:</label>
+    <input id="descricao" [(ngModel)]="produto.descricao" name="descricao" required />
+  
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" id="quantidade" [(ngModel)]="produto.quantidade" name="quantidade" required />
+  
+    <label for="preco">Preço:</label>
+    <input type="number" id="preco" [(ngModel)]="produto.preco" name="preco" required />
+  
+    <button type="submit">Salvar Produto</button>
+  </form>
+  

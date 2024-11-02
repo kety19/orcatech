@@ -1,0 +1,18 @@
+<section class="cliente-section">
+    <h2 class="section-title">Dados do Cliente</h2>
+    <form class="form-style" (ngSubmit)="salvarCliente()">
+      <label>Nome</label>
+      <input type="text" [(ngModel)]="cliente.nome" name="clienteNome" required />
+  
+      <label>Endereço</label>
+      <input type="text" [(ngModel)]="cliente.endereco" name="clienteEndereco" required />
+  
+      <label>Telefone</label>
+      <input type="tel" [(ngModel)]="cliente.telefone" name="clienteTelefone" required />
+  
+      <label>E-mail</label>
+      <input type="email" [(ngModel)]="cliente.email" name="clienteEmail" required />
+      
+      <button type="submit" class="save-client-btn">Salvar Cliente</button>
+    </form>
+  </section>

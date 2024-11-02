@@ -1,0 +1,16 @@
+<div *ngIf="orcamento" class="budget-display">
+    <h2 class="section-title">Orçamento</h2>
+    <p><strong>Emissor:</strong> {{ orcamento.emissor.nome }}</p>
+    <p><strong>Cliente:</strong> {{ orcamento.cliente.nome }}</p>
+    <p><strong>Observação:</strong> {{ orcamento.observacao }}</p>
+    <p><strong>Total:</strong> {{ orcamento.total | currency }}</p>
+  
+    <h3>Produtos:</h3>
+    <ul>
+      <li *ngFor="let produto of orcamento.produtos">
+        {{ produto.nome }} - {{ produto.preco | currency }}
+      </li>
+    </ul>
+  </div>
+  
+  <button (click)="criarOrcamento()" class="create-budget-btn">Criar Orçamento</button>
