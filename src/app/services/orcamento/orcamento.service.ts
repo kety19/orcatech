@@ -29,6 +29,6 @@ export class OrcamentoService {
     produtos: ProdutoServico[]
   ) {
     const total = this.calcularTotal(produtos);
-    this.orcamento = { emissor, cliente, observacao, produtos, total };
+    this.orcamento = { emissor, cliente, observacao, produtos, total, status };
   }
 }

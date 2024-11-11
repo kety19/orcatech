@@ -1,4 +1,4 @@
-import { Relatorio } from './relatorio';
+import { Relatorio } from './relatorio.model';
 
 describe('Relatorio', () => {
   it('should create an instance', () => {

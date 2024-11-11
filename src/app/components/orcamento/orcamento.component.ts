@@ -20,7 +20,7 @@ export class OrcamentoComponent implements OnInit {
   constructor(private orcamentoService: OrcamentoService) {}
 
   ngOnInit(): void {
-    this.orcamento = this.orcamentoService.getOrcamento(); // Obtém o orçamento atual ao inicializar o componente
+    this.orcamento = this.orcamentoService.getOrcamento(); 
   }
 
   criarOrcamento(): void {

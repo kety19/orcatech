@@ -9,6 +9,6 @@ export const routes: Routes = [
   { path: 'cliente', component: ClienteComponent },
   { path: 'orcamento', component: OrcamentoComponent },
   { path: 'relatorio', component: RelatorioComponent },
-  { path: '', redirectTo: 'orcamento', pathMatch: 'full' }, // Redireciona para a rota do OrcamentoComponent
-  { path: '**', redirectTo: 'orcamento', pathMatch: 'full' } // Rota para redirecionar caso o caminho não exista
+  { path: '', redirectTo: 'orcamento', pathMatch: 'full' }, 
+  { path: '**', redirectTo: 'orcamento', pathMatch: 'full' } 
 ];

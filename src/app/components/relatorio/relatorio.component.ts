@@ -20,7 +20,7 @@ export class RelatorioComponent {
 
   gerarRelatorio() {
     const orcamento: Orcamento | null = this.orcamentoService.getOrcamento();
-  
+
     if (orcamento) {
       console.log("Orçamento encontrado:", orcamento);
       this.relatorioService.gerarRelatorio(orcamento);

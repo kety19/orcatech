@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import { ClienteService } from '../../services/cliente/cliente.service';
-import { Cliente } from '../../model/cliente.model';
 import { FormsModule } from '@angular/forms';
+import { Cliente } from '../../model/cliente.model';
 
 @Component({
   selector: 'app-cliente',

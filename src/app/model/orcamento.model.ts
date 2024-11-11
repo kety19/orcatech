@@ -15,6 +15,8 @@ export interface Orcamento {
     email: string;
   };
   observacao: string;
-  produtos: ProdutoServico[]; // Array de produtos
-  total: number; // Adiciona a propriedade total
+  produtos: ProdutoServico[]; 
+  total: number; 
+  status: string; 
+  
 }
