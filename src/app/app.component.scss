@@ -1,218 +1,117 @@
-/* estilos  */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #001f3f;
+    background-color: #f4f7fc;
     margin: 0;
     padding: 0;
-}
-
-.wrapper {
-    max-width: 800px;
+  }
+  
+  /* Stepper */
+  .stepper {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+    max-width: 90%;
+    padding: 10px 0;
+  }
+  
+  .step {
+    text-align: center;
+    flex: 1;
+    position: relative;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .step span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    background-color: #ddd;
+    color: white;
+    border-radius: 50%;
+    line-height: 30px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .step p {
+    margin-top: 5px;
+  }
+  
+  .step.active span {
+    background-color: #4CAF50;
+  }
+  
+  .step.completed span {
+    background-color: #4CAF50;
+    background-size: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .step.active p,
+  .step.completed p {
+    color: #4CAF50;
+  }
+  
+  /* Estilos gerais */
+  .app-container {
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* sesao de -produtos/serviços */
-.product-service-section {
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
-    .section-title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        text-align: center;
-        margin-bottom: 20px;
-        border-bottom: 2px solid #4CAF50;
-        padding-bottom: 5px;
-    }
-
-    .product-form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-
-        label {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        input[type="text"],
-        input[type="number"] {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
-            transition: border-color 0.3s;
-
-            &:focus {
-                border-color: #4CAF50;
-            }
-        }
-
-        .save-btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            align-self: center;
-            margin-top: 20px;
-
-            &:hover {
-                background-color: #45a049;
-            }
-        }
-    }
-}
-
-/* titulos de seção */
-.section-title {
-    font-size: 26px;
-    font-weight: bold;
-    color: #333;
-    border-bottom: 2px solid #4CAF50;
-    padding-bottom: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* informações do emissor e cliente */
-.info-section {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-
-    p {
-        margin: 5px 0;
-        font-size: 16px;
-
-        strong {
-            color: #555;
-        }
-    }
-}
-
-.form-style {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-
-    label {
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-    }
-
-    input {
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        outline: none;
-        transition: border-color 0.3s;
-
-        &:focus {
-            border-color: #4CAF50;
-        }
-    }
-
-    .save-emissor-btn, .save-client-btn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-
-        &:hover {
-            background-color: #45a049;
-        }
-    }
-}
-
-/* tabela de produtos */
-.product-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-        font-size: 16px;
-    }
-
-    th {
-        background-color: #4CAF50;
-        color: white;
-        font-weight: bold;
-    }
-
-    td {
-        background-color: #f9f9f9;
-    }
-}
-
-/* total e observação */
-.total {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: right;
-    color: #333;
-    margin-top: 20px;
-}
-
-/*   observações */
-.observacao {
-    margin-top: 20px;
-  
-    label {
-      font-size: 16px;
-      font-weight: bold;
-      color: #333;
-    }
-  
-    textarea {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      outline: none;
-      transition: border-color 0.3s;
-  
-      &:focus {
-        border-color: #4CAF50;
-      }
-    }
   }
   
-.logo {
-    display: block;
-    max-width: 100%; 
-    height: auto;    
-    margin: 20px auto; 
-}
-
-/* botoesnzinhos */
-button {
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    background-color: #fff;
+    border-bottom: 2px solid #4CAF50;
+  }
+  
+  header .logo img {
+    height: 40px;
+  }
+  
+  header h1 {
+    font-size: 24px;
+    margin-left: 10px;
+    color: #333;
+  }
+  
+  nav a {
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  nav a.active {
+    color: #4CAF50;
+  }
+  
+  /* Área de Conteúdo */
+  main {
+    padding: 20px;
+  }
+  
+  /* Rodapé */
+  footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #f1f1f1;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  /* Estilos do botão */
+  button {
     display: inline-block;
     margin-top: 20px;
     padding: 12px 24px;
@@ -223,89 +122,9 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-
+  
     &:hover {
-        background-color: #45a049;
+      background-color: #45a049;
     }
-
-    //dashboard
-
-    .dashboard {
-        padding: 20px;
-        font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: auto;
-        
-        h1 {
-            font-size: 2.5em;
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-    
-        .dashboard-summary {
-            display: flex;
-            justify-content: space-around;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-    
-        .card {
-            background-color: #f4f6f8;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            width: 220px;
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-    
-            &:hover {
-                transform: scale(1.05);
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            }
-    
-            i.material-icons {
-                font-size: 40px;
-                color: #27ae60;
-                margin-bottom: 10px;
-            }
-    
-            h2 {
-                font-size: 1.3em;
-                color: #444;
-                margin-bottom: 10px;
-            }
-    
-            .count {
-                font-size: 2em;
-                color: #333;
-                font-weight: bold;
-            }
-        }
-    
-        .orcamento-list {
-            h2 {
-                font-size: 1.5em;
-                color: #333;
-                margin-bottom: 15px;
-            }
-        }
-    }
-    
-    
-    
-    //mensagem salva
-    .alert-message {
-        background-color: rgba(255, 255, 255, 0.9); 
-        border: 1px solid #f00; 
-        padding: 10px 20px; 
-        border-radius: 8px; 
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); //sombra
-        position: absolute;
-        z-index: 1000; 
-      }
-}
+  }
+  

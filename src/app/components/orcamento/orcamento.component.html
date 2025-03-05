@@ -1,15 +1,45 @@
-<div *ngIf="orcamento" class="budget-display">
-    <h2 class="section-title">Orçamento</h2>
-    <p><strong>Emissor:</strong> {{ orcamento.emissor.nome }}</p>
-    <p><strong>Cliente:</strong> {{ orcamento.cliente.nome }}</p>
-    <p><strong>Observação:</strong> {{ orcamento.observacao }}</p>
-    <p><strong>Total:</strong> {{ orcamento.total | currency }}</p>
-  
-    <h3>Produtos:</h3>
-    <ul>
-      <li *ngFor="let produto of orcamento.produtos">
-        {{ produto.nome }} - {{ produto.preco | currency }}
-      </li>
-    </ul>
+<div class="container">
+  <h2 class="text-center mb-4">Detalhes do Orçamento</h2>
+
+  <div *ngIf="orcamentos.length > 0" class="budget-container">
+    <!-- Informações Gerais -->
+    <div class="form-group mb-3">
+      <label class="form-label"><strong>Emissor:</strong></label>
+      <p class="form-control-plaintext">{{ orcamentos[0].emissor.nome || 'N/A' }}</p>
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="form-label"><strong>Cliente:</strong></label>
+      <p class="form-control-plaintext">{{ orcamentos[0].cliente.nome || 'N/A' }}</p>
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="form-label"><strong>Observação:</strong></label>
+      <p class="form-control-plaintext">{{ orcamentos[0].observacao || 'Nenhuma observação fornecida.' }}</p>
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="form-label"><strong>Total:</strong></label>
+      <p class="form-control-plaintext">{{ orcamentos[0].total || 0 | currency:'BRL' }}</p>
+    </div>
+
+    <!-- Lista de Produtos -->
+    <div class="products-container">
+      <h3 class="section-subtitle mb-3">Produtos Incluídos</h3>
+      <ul class="list-group">
+        <li *ngFor="let produto of orcamentos[0].produtos" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ produto.descricao }} (Qtd: {{ produto.quantidade }})</span>
+          <span>{{ produto.preco | currency:'BRL' }}</span>
+        </li>
+      </ul>
+      <div *ngIf="!orcamentos[0].produtos || orcamentos[0].produtos.length === 0" class="mt-3">
+        <p class="text-muted">Nenhum produto ou serviço foi adicionado a este orçamento.</p>
+      </div>
+    </div>
   </div>
-  
+
+  <!-- Mensagem caso não haja orçamento -->
+  <div *ngIf="orcamentos.length === 0" class="text-center mt-5">
+    <p class="text-muted">Nenhum orçamento disponível para exibição.</p>
+  </div>
+</div>

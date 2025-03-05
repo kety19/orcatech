@@ -1,6 +1,31 @@
-<div #relatorioContent>
-    <h1>Relatório de Orçamento</h1>
-    <p>Conteúdo do relatório será exibido aqui.</p>
+<div class="relatorio-container">
+  <h1>Relatório de Orçamento</h1>
+
+  <div *ngIf="orcamento" class="orcamento-details">
+    <div class="orcamento-item">
+      <strong>Emissor:</strong> {{ orcamento.emissor.nome }}
+    </div>
+    <div class="orcamento-item">
+      <strong>Cliente:</strong> {{ orcamento.cliente.nome }}
+    </div>
+    <div class="orcamento-item">
+      <strong>Observação:</strong> {{ orcamento.observacao }}
+    </div>
+    <div class="orcamento-item">
+      <strong>Total:</strong> {{ orcamento.total | currency }}
+    </div>
+
+    <div class="orcamento-products">
+      <h3>Produtos:</h3>
+      <ul>
+        <li *ngFor="let produto of orcamento.produtos">
+          {{ produto.nome }} - {{ produto.preco | currency }}
+        </li>
+      </ul>
+    </div>
   </div>
 
-  
+  <div class="relatorio-actions">
+    <button (click)="gerarPDF()" class="btn btn-primary">Gerar Relatório em PDF</button>
+  </div>
+</div>

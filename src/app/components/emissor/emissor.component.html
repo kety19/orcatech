@@ -1,17 +1,84 @@
-<h2>Dados do Emissor</h2>
-<form>
-  <label>Nome</label>
-  <input type="text" [(ngModel)]="emissor.nome" />
-  
-  <label>Telefone</label>
-  <input type="tel" [(ngModel)]="emissor.telefone" />
-  
-  <label>E-mail</label>
-  <input type="email" [(ngModel)]="emissor.email" />
-  
-  <label>Endereço</label>
-  <input type="text" [(ngModel)]="emissor.endereco" />
-  
-  <label>CNPJ</label>
-  <input type="text" [(ngModel)]="emissor.cnpj" />
-</form>
+<div class="container">
+  <h2 class="text-center mb-4">Cadastro Emissor</h2>
+
+  <form [formGroup]="emissorForm" (ngSubmit)="salvarEmissor()">
+        <!-- Nome -->
+    <div class="form-group mb-3">
+      <label for="nome" class="form-label">Nome</label>
+      <input
+        id="nome"
+        formControlName="nome"
+        type="text"
+        class="form-control"
+        placeholder="Nome do emissor"
+      />
+      <div *ngIf="formSubmetido && emissorForm.get('nome')?.invalid" class="text-danger">
+        O nome é obrigatório.
+      </div>
+    </div>
+
+    <!-- Telefone -->
+    <div class="form-group mb-3">
+      <label for="telefone" class="form-label">Telefone</label>
+      <input
+        id="telefone"
+        formControlName="telefone"
+        type="text"
+        class="form-control"
+        placeholder="Telefone"
+      />
+      <div *ngIf="formSubmetido && emissorForm.get('telefone')?.invalid" class="text-danger">
+        O telefone é obrigatório e deve conter apenas números.
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        class="form-control"
+        placeholder="Email"
+      />
+      <div *ngIf="formSubmetido && emissorForm.get('email')?.invalid" class="text-danger">
+        O email é obrigatório e deve estar no formato correto.
+      </div>
+    </div>
+
+    <!-- Endereço -->
+    <div class="form-group mb-3">
+      <label for="endereco" class="form-label">Endereço</label>
+      <input
+        id="endereco"
+        formControlName="endereco"
+        type="text"
+        class="form-control"
+        placeholder="Endereço"
+      />
+      <div *ngIf="formSubmetido && emissorForm.get('endereco')?.invalid" class="text-danger">
+        O endereço é obrigatório.
+      </div>
+    </div>
+
+    <!-- CNPJ -->
+    <div class="form-group mb-4">
+      <label for="cnpj" class="form-label">CNPJ</label>
+      <input
+        id="cnpj"
+        formControlName="cnpj"
+        type="text"
+        class="form-control"
+        placeholder="CNPJ"
+      />
+      <div *ngIf="formSubmetido && emissorForm.get('cnpj')?.invalid" class="text-danger">
+        O CNPJ é obrigatório e deve ter 14 dígitos.
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+  </form>
+</div>

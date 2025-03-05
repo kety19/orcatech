@@ -1,18 +1,34 @@
-<section class="cliente-section">
-  <h2 class="section-title">Dados do Cliente</h2>
-  <form class="form-style" (ngSubmit)="salvarCliente()">
-    <label>Nome</label>
-    <input type="text" [(ngModel)]="cliente.nome" name="clienteNome" required />
+<div class="container">
+  <h2 class="text-center mb-4">Cadastro de Cliente</h2>
 
-    <label>Endereço</label>
-    <input type="text" [(ngModel)]="cliente.endereco" name="clienteEndereco" required />
+  <form [formGroup]="clienteForm" (ngSubmit)="salvarCliente()">
+    <!-- Nome -->
+    <div class="form-group mb-3">
+      <label for="nome" class="form-label">Nome</label>
+      <input id="nome" formControlName="nome" type="text" class="form-control" placeholder="Digite seu nome" />
+    </div>
 
-    <label>Telefone</label>
-    <input type="tel" [(ngModel)]="cliente.telefone" name="clienteTelefone" required />
+    <!-- Endereço -->
+    <div class="form-group mb-3">
+      <label for="endereco" class="form-label">Endereço</label>
+      <input id="endereco" formControlName="endereco" type="text" class="form-control" placeholder="Digite seu endereço" />
+    </div>
 
-    <label>E-mail</label>
-    <input type="email" [(ngModel)]="cliente.email" name="clienteEmail" required />
-    
-    <button type="submit" class="save-client-btn">Salvar Cliente</button>
+    <!-- Telefone -->
+    <div class="form-group mb-3">
+      <label for="telefone" class="form-label">Telefone</label>
+      <input id="telefone" formControlName="telefone" type="text" class="form-control" placeholder="Digite seu telefone" />
+    </div>
+
+    <!-- Email -->
+    <div class="form-group mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      <input id="email" formControlName="email" type="email" class="form-control" placeholder="Digite seu e-mail" />
+    </div>
+
+    <!-- Botões de ação -->
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary" [disabled]="!clienteForm.valid">Salvar</button>
+    </div>
   </form>
-</section>
+</div>

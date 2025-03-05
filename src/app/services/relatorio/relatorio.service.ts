@@ -1,56 +1,70 @@
 import { Injectable } from '@angular/core';
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
 import { Orcamento } from '../../model/orcamento.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class RelatorioService {
-  constructor() {}
-
-  gerarRelatorio(orcamento: Orcamento): void {
+  gerarPDF(orcamento: Orcamento, logoUrl: string | ArrayBuffer | null): void {
     const doc = new jsPDF();
 
-    // título do PDF
-    doc.setFontSize(16);
-    doc.text('Orçamento de Serviços - OrçaTech', 10, 10);
+    // Adiciona logo ao PDF
+    if (logoUrl) {
+      doc.addImage(logoUrl as string, 'JPEG', 10, 10, 50, 50);
+    }
 
-    //  emissor
+    doc.setFontSize(18);
+    doc.text('Orçamento', 10, 70);
     doc.setFontSize(12);
-    doc.text('Informações do Emissor:', 10, 20);
-    doc.text(`Nome: ${orcamento.emissor.nome || ''}`, 10, 30);
-    doc.text(`Telefone: ${orcamento.emissor.telefone || ''}`, 10, 40);
-    doc.text(`Email: ${orcamento.emissor.email || ''}`, 10, 50);
-    doc.text(`Endereço: ${orcamento.emissor.endereco || ''}`, 10, 60);
-    doc.text(`CNPJ: ${orcamento.emissor.cnpj || ''}`, 10, 70);
 
-    // cliente
-    doc.text('Informações do Cliente:', 10, 90);
-    doc.text(`Nome: ${orcamento.cliente.nome || ''}`, 10, 100);
-    doc.text(`Telefone: ${orcamento.cliente.telefone || ''}`, 10, 110);
-    doc.text(`Email: ${orcamento.cliente.email || ''}`, 10, 120);
-    doc.text(`Endereço: ${orcamento.cliente.endereco || ''}`, 10, 130);
+    // Adiciona informações ao PDF
+    this.addEmissorInfoToPDF(doc, orcamento);
+    this.addClienteInfoToPDF(doc, orcamento);
+    this.addProdutosToPDF(doc, orcamento);
+    this.addTotalAndObservacaoToPDF(doc, orcamento);
 
-    // descrição e total do orçamento
-    doc.text('Descrição do Orçamento:', 10, 150);
-    doc.text(orcamento.observacao || '', 10, 160);
-    doc.text(`Total: R$ ${orcamento.total.toFixed(2)}`, 10, 170);
+    // Salva o PDF
+    doc.save('orcamento.pdf');
+  }
 
-    // adicionando lista de produtos
-    let yPosition = 180;
-    doc.text('Produtos/Serviços:', 10, yPosition);
-    yPosition += 10;
+  private addEmissorInfoToPDF(doc: jsPDF, orcamento: Orcamento) {
+    doc.text(`Emissor: ${orcamento.emissor.nome || ''}`, 10, 80);
+    doc.text(`Telefone: ${orcamento.emissor.telefone || ''}`, 10, 90);
+    doc.text(`Email: ${orcamento.emissor.email || ''}`, 10, 100);
+    doc.text(`Endereço: ${orcamento.emissor.endereco || ''}`, 10, 110);
+    doc.text(`CNPJ: ${orcamento.emissor.cnpj || ''}`, 10, 120);
+  }
 
-    orcamento.produtos.forEach((produto) => {
+  private addClienteInfoToPDF(doc: jsPDF, orcamento: Orcamento) {
+    doc.text(`Cliente: ${orcamento.cliente.nome || ''}`, 10, 140);
+    doc.text(`Endereço: ${orcamento.cliente.endereco || ''}`, 10, 150);
+    doc.text(`Telefone: ${orcamento.cliente.telefone || ''}`, 10, 160);
+    doc.text(`Email: ${orcamento.cliente.email || ''}`, 10, 170);
+  }
+
+  private addProdutosToPDF(doc: jsPDF, orcamento: Orcamento) {
+    let yPosition = 190;
+    doc.text('Produtos:', 10, yPosition);
+    orcamento.produtos.forEach((produto, index) => {
+      yPosition += 10;
       doc.text(
-        `${produto.nome || ''} - Quantidade: ${produto.quantidade || 1} - Preço: R$ ${produto.preco.toFixed(2)}`,
+        `${index + 1}. ${produto.descricao || ''} - Quantidade: ${
+          produto.quantidade
+        } - Preço: R$${produto.preco.toFixed(2)}`,
         10,
         yPosition
       );
-      yPosition += 10;
     });
+  }
 
-    
-    doc.save('orcamento.pdf');
+  private addTotalAndObservacaoToPDF(doc: jsPDF, orcamento: Orcamento) {
+    let yPosition = 210 + orcamento.produtos.length * 10;
+    doc.setFontSize(14);
+    doc.text(`Total: R$${orcamento.total.toFixed(2)}`, 10, yPosition);
+    yPosition += 20;
+    doc.setFontSize(12);
+    doc.text('Observação:', 10, yPosition);
+    doc.text(orcamento.observacao || '', 10, yPosition + 10);
   }
 }

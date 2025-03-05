@@ -1,22 +1,13 @@
+import { Cliente } from "./cliente.model";
+import { Emissor } from "./emissor.model";
 import { ProdutoServico } from "./produto-servico.model";
 
+
 export interface Orcamento {
-  emissor: {
-    nome: string;
-    telefone: string;
-    email: string;
-    endereco: string;
-    cnpj: string;
-  };
-  cliente: {
-    nome: string;
-    endereco: string;
-    telefone: string;
-    email: string;
-  };
+  emissor: Emissor; 
+  cliente: Cliente; 
   observacao: string;
-  produtos: ProdutoServico[]; 
-  total: number; 
-  status: string; 
-  
+  produtos: ProdutoServico[];
+  total: number;
+  status: string;
 }

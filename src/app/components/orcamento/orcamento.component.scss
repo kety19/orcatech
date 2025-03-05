@@ -1,23 +1,127 @@
-h2 {
-    color: #333;
+/* Layout geral para exibição de orçamento */
+.budget-display {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.budget-info p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.budget-info strong {
+  color: #007bff;
+}
+
+.section-subtitle {
+  font-size: 22px;
+  color: #333;
+  margin-top: 30px;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+}
+
+.product-item {
+  font-size: 18px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.product-item span {
+  color: #555;
+}
+
+/* Layout para criação de orçamento */
+.create-budget-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-budget-container h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.step {
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 16px;
+  color: #555;
+  display: block;
+  margin-bottom: 8px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .create-budget-container,
+  .budget-display {
+    padding: 20px;
   }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
+
+  .section-title,
+  .section-subtitle {
+    font-size: 24px;
   }
-  
-  button {
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #45a049;
-    }
-  }
-  
+}

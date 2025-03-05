@@ -1,183 +1,50 @@
-<router-outlet></router-outlet>
-<div class="wrapper">
+<div class="app-container">
+  <!-- Cabeçalho -->
+  <header>
+    <h1>Gerador de Orçamento</h1>
+  </header>
 
-  <div class="wrapper">
-    <section class="emissor-section">
-      <h2 class="section-title">Dados do Emissor</h2>
-      <form [formGroup]="emissorForm" (ngSubmit)="salvarEmissor()" class="form-style">
-        <label>Nome</label>
-        <input type="text" formControlName="nome" />
-        <div *ngIf="emissorForm.get('nome')?.invalid && emissorForm.get('nome')?.touched" class="error-message">Nome é obrigatório.</div>
-  
-        <label>Telefone</label>
-        <input type="tel" formControlName="telefone" />
-        <div *ngIf="emissorForm.get('telefone')?.invalid && emissorForm.get('telefone')?.touched" class="error-message">Telefone inválido.</div>
-  
-        <label>E-mail</label>
-        <input type="email" formControlName="email" />
-        <div *ngIf="emissorForm.get('email')?.invalid && emissorForm.get('email')?.touched" class="error-message">Email inválido.</div>
-  
-        <label>Endereço</label>
-        <input type="text" formControlName="endereco" />
-        <div *ngIf="emissorForm.get('endereco')?.invalid && emissorForm.get('endereco')?.touched" class="error-message">Endereço é obrigatório.</div>
-  
-        <label>CNPJ</label>
-        <input type="text" formControlName="cnpj" />
-        <div *ngIf="emissorForm.get('cnpj')?.invalid && emissorForm.get('cnpj')?.touched" class="error-message">CNPJ inválido (deve ter 14 dígitos).</div>
-  
-        <button type="submit" class="save-emissor-btn" [disabled]="emissorForm.invalid">Salvar Emissor</button>
-      </form>
-    </section>
-  
-    <section class="cliente-section">
-      <h2 class="section-title">Dados do Cliente</h2>
-      <form [formGroup]="clienteForm" (ngSubmit)="salvarCliente()" class="form-style">
-        <label>Nome</label>
-        <input type="text" formControlName="nome" />
-        <div *ngIf="clienteForm.get('nome')?.invalid && clienteForm.get('nome')?.touched" class="error-message">Nome é obrigatório.</div>
-  
-        <label>Endereço</label>
-        <input type="text" formControlName="endereco" />
-        <div *ngIf="clienteForm.get('endereco')?.invalid && clienteForm.get('endereco')?.touched" class="error-message">Endereço é obrigatório.</div>
-  
-        <label>Telefone</label>
-        <input type="tel" formControlName="telefone" />
-        <div *ngIf="clienteForm.get('telefone')?.invalid && clienteForm.get('telefone')?.touched" class="error-message">Telefone inválido.</div>
-  
-        <label>E-mail</label>
-        <input type="email" formControlName="email" />
-        <div *ngIf="clienteForm.get('email')?.invalid && clienteForm.get('email')?.touched" class="error-message">Email inválido.</div>
-  
-        <button type="submit" class="save-client-btn" [disabled]="clienteForm.invalid">Salvar Cliente</button>
-      </form>
-    </section>
-  
-    <section class="produto-section">
-      <h2 class="section-title">Adicionar Produto</h2>
-      <form [formGroup]="produtoForm" (ngSubmit)="salvarProduto()" class="form-style">
-        <label for="nome">Nome:</label>
-        <input id="nome" formControlName="nome" />
-        <div *ngIf="produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched" class="error-message">Nome é obrigatório.</div>
-  
-        <label for="descricao">Descrição:</label>
-        <input id="descricao" formControlName="descricao" />
-        <div *ngIf="produtoForm.get('descricao')?.invalid && produtoForm.get('descricao')?.touched" class="error-message">Descrição é obrigatória.</div>
-  
-        <label for="quantidade">Quantidade:</label>
-        <input type="number" id="quantidade" formControlName="quantidade" />
-        <div *ngIf="produtoForm.get('quantidade')?.invalid && produtoForm.get('quantidade')?.touched" class="error-message">Quantidade deve ser maior que 0.</div>
-  
-        <label for="preco">Preço:</label>
-        <input type="number" id="preco" formControlName="preco" />
-        <div *ngIf="produtoForm.get('preco')?.invalid && produtoForm.get('preco')?.touched" class="error-message">Preço deve ser maior que 0.</div>
-  
-        <button type="submit" class="add-product-btn" [disabled]="produtoForm.invalid">Adicionar Produto</button>
-      </form>
-    </section>
+  <!-- Stepper de Navegação -->
+  <div class="stepper">
+    <div class="step" [ngClass]="{ 'active': step === 1, 'completed': step > 1 }">
+      <span>1</span>
+      <p>Emissor</p>
+    </div>
+    <div class="step" [ngClass]="{ 'active': step === 2, 'completed': step > 2 }">
+      <span>2</span>
+      <p>Cliente</p>
+    </div>
+    <div class="step" [ngClass]="{ 'active': step === 3, 'completed': step > 3 }">
+      <span>3</span>
+      <p>Produtos/Serviços</p>
+    </div>
+    <div class="step" [ngClass]="{ 'active': step === 4, 'completed': step > 4 }">
+      <span>4</span>
+      <p>Orçamento</p>
+    </div>
+    <div class="step" [ngClass]="{ 'active': step === 5, 'completed': step > 5 }">
+      <span>5</span>
+      <p>Relatório</p>
+    </div>
+    <div class="step" [ngClass]="{ 'active': step === 6, 'completed': step > 6 }">
+      <span>6</span>
+      <p>Dashboard</p>
+    </div>
   </div>
 
-  <!-- orçamento -->
-  <section>
-    <h2 class="section-title">Orçamento</h2>
-  
-    <!-- emissor -->
-    <div class="info-section">
-      <p><strong>Emissor:</strong> {{ orcamento.emissor.nome }}</p>
-      <p><strong>Telefone:</strong> {{ orcamento.emissor.telefone }}</p>
-      <p><strong>E-mail:</strong> {{ orcamento.emissor.email }}</p>
-      <p><strong>Endereço:</strong> {{ orcamento.emissor.endereco }}</p>
-      <p><strong>CNPJ:</strong> {{ orcamento.emissor.cnpj }}</p>
-    </div>
-  
-    <!-- cliente -->
-    <div class="info-section">
-      <p><strong>Cliente:</strong> {{ orcamento.cliente.nome }}</p>
-      <p><strong>Endereço:</strong> {{ orcamento.cliente.endereco }}</p>
-      <p><strong>Telefone:</strong> {{ orcamento.cliente.telefone }}</p>
-      <p><strong>E-mail:</strong> {{ orcamento.cliente.email }}</p>
-    </div>
-  
-    <!-- tabela de produtos -->
-    <h3 class="section-title">Produtos</h3>
-    <table class="product-table">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Preço Unitário</th>
-          <th>Subtotal</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let produto of orcamento.produtos">
-          <td>{{ produto.nome }}</td>
-          <td>{{ produto.descricao }}</td>
-          <td>{{ produto.quantidade }}</td>
-          <td>{{ produto.preco | currency }}</td>
-          <td>{{ (produto.quantidade * produto.preco) | currency }}</td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <!-- total e observação -->
-<p class="total">Total: {{ orcamento.total | currency }}</p>
+  <!-- Área de Conteúdo Gerenciado pelo Roteador -->
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 
-<div class="observacao">
-  <label for="observacao"><strong>Observação:</strong></label>
-  <textarea id="observacao" [(ngModel)]="orcamento.observacao" rows="4" placeholder="Digite suas observações aqui..."></textarea>
-</div>
+  <!-- Botões de Navegação -->
+  <div class="button-container">
+    <button (click)="prevStep()" [disabled]="step === 1">Voltar</button>
+    <button (click)="nextStep()" [disabled]="step === 6">Avançar</button>
+  </div>
 
-  
-    
-    
-    <button (click)="gerarRelatorioPDF()">Gerar PDF</button>
-  </section>
-
-  <!-- logo -->
-  <section class="logo-section">
-    <h2 class="section-title">Adicionar Logo</h2>
-    <input type="file" (change)="onLogoSelected($event)" accept="image/*" />
-    
-    <!-- exibir o logo  -->
-    <div *ngIf="logoUrl">
-      <img [src]="logoUrl" alt="Logo" class="logo" />
-    </div>
-  </section>
-
-      <!-- dashboard  -->
-
-  <div class="dashboard">
-    <h1>Orcatech</h1>
-    
-    <!-- cartões da dashboard -->
-    <div class="dashboard-summary">
-        <!-- total orçamentos -->
-        <div class="card">
-            <i class="material-icons">list</i>
-            <h2>Total Orçamentos</h2>
-            <p class="count">0</p>
-        </div>
-
-        <!-- orçamentos vendidos -->
-        <div class="card">
-            <i class="material-icons">check_circle</i>
-            <h2>Orçamentos Vendidos</h2>
-            <p class="count">0</p>
-        </div>
-
-        <!-- orçamentos não vendidos -->
-        <div class="card">
-            <i class="material-icons">error</i>
-            <h2>Orçamentos Não Vendidos</h2>
-            <p class="count">0</p>
-        </div>
-    </div>
-
-    <!-- lista de orçamentos -->
-    <div class="orcamento-list">
-        <h2>Lista de Orçamentos</h2>
-    </div>
-</div>
-
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2024 - Gerador de Orçamento Online. Todos os direitos reservados.</p>
+  </footer>
 </div>

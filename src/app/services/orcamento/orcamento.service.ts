@@ -1,34 +1,80 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Orcamento } from '../../model/orcamento.model';
+import { ProdutoServico } from '../../model/produto-servico.model';
 import { Cliente } from '../../model/cliente.model';
 import { Emissor } from '../../model/emissor.model';
-import { ProdutoServico } from '../../model/produto-servico.model';
-import { Orcamento } from '../../model/orcamento.model'; 
+import { EmissorService } from '../emissor/emissor.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrcamentoService {
-  private orcamento: Orcamento | null = null;
+  private orcamentos: Orcamento[] = [];
+  private orcamentosSubject = new BehaviorSubject<Orcamento[]>([]);
+  private feedbackSubject = new BehaviorSubject<string>('');
 
-  getOrcamento(): Orcamento | null {
-    return this.orcamento;
+  feedback$ = this.feedbackSubject.asObservable();
+
+  constructor(private emissorService: EmissorService) {
+    this.carregarOrcamentos();
   }
 
-  setOrcamento(orcamento: Orcamento): void {
-    this.orcamento = orcamento;
+  getOrcamentos(): Observable<Orcamento[]> {
+    return this.orcamentosSubject.asObservable();
   }
 
-  calcularTotal(produtos: ProdutoServico[]): number {
-    return produtos.reduce((total, produto) => total + produto.preco, 0);
+  private atualizarOrcamentos(): void {
+    this.orcamentosSubject.next([...this.orcamentos]); // ✅ Garante que a mudança seja detectada
+  }
+
+  carregarOrcamentos(): void {
+    try {
+      const orcamentosSalvos = localStorage.getItem('orcamentos');
+      this.orcamentos = orcamentosSalvos ? JSON.parse(orcamentosSalvos) : [];
+    } catch (error) {
+      console.error('Erro ao carregar orçamentos do localStorage:', error);
+      this.orcamentos = [];
+    }
+    this.atualizarOrcamentos();
+  }
+
+  private salvarOrcamentos(): void {
+    localStorage.setItem('orcamentos', JSON.stringify(this.orcamentos));
+    this.atualizarOrcamentos();
+  }
+
+  atualizarStatusOrcamento(index: number, status: 'vendido' | 'nao vendido'): void {
+    if (this.orcamentos[index]) {
+      this.orcamentos[index].status = status;
+      this.salvarOrcamentos();
+      this.setFeedbackMessage('Status do orçamento atualizado com sucesso!');
+    } else {
+      console.error('Orçamento não encontrado');
+    }
   }
 
   criarOrcamento(
     emissor: Emissor,
     cliente: Cliente,
     observacao: string,
-    produtos: ProdutoServico[]
-  ) {
+    produtos: ProdutoServico[],
+    status: string = 'pendente'
+  ): void {
     const total = this.calcularTotal(produtos);
-    this.orcamento = { emissor, cliente, observacao, produtos, total, status };
+    const novoOrcamento: Orcamento = { emissor, cliente, observacao, produtos, total, status };
+    
+    this.orcamentos.push(novoOrcamento);
+    this.salvarOrcamentos();
+    this.setFeedbackMessage('Orçamento salvo com sucesso!');
+  }
+
+  calcularTotal(produtos: ProdutoServico[]): number {
+    return produtos.reduce((total, produto) => total + produto.preco * produto.quantidade, 0);
+  }
+
+  private setFeedbackMessage(message: string): void {
+    this.feedbackSubject.next(message);
+    setTimeout(() => this.feedbackSubject.next(''), 3000);
   }
 }

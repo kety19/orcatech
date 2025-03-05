@@ -1,0 +1,31 @@
+<div class="dashboard-container">
+  <h2>Dashboard de Orçamentos</h2>
+
+  <!-- Botão de criação de orçamento -->
+  <div class="action-container">
+    <button (click)="criarNovoOrcamento()" class="btn btn-primary">Criar Novo Orçamento</button>
+  </div>
+
+  <!-- Lista de orçamentos criados -->
+  <div class="orcamentos-list">
+    <h3>Orçamentos Criados</h3>
+    <ul>
+      <li *ngFor="let orcamento of orcamentos; let i = index" class="orcamento-item">
+        <div class="orcamento-info">
+          <strong>{{ orcamento.cliente.nome }}</strong>
+          <span class="status" [ngClass]="orcamento.status === 'vendido' ? 'status-vendido' : 'status-nao-vendido'">
+            {{ orcamento.status }}
+          </span>
+        </div>
+        <div class="action-buttons">
+          <button (click)="atualizarStatus(i, 'vendido')" class="btn btn-success" *ngIf="orcamento.status !== 'vendido'">
+            Marcar como Vendido
+          </button>
+          <button (click)="atualizarStatus(i, 'nao vendido')" class="btn btn-danger" *ngIf="orcamento.status !== 'nao vendido'">
+            Marcar como Não Vendido
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

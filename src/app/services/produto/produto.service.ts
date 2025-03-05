@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProdutoServico } from '../../model/produto-servico.model';
 
@@ -7,17 +7,31 @@ import { ProdutoServico } from '../../model/produto-servico.model';
   providedIn: 'root',
 })
 export class ProdutoService {
-  private API = 'http://localhost:8081/produtos-servicos';
+  private produtos: ProdutoServico[] = [];
+  private readonly API_URL = 'http://localhost:8081/produtos-servicos';
 
   constructor(private http: HttpClient) {}
 
-  // Método para adicionar um produto ao back-end
-  adicionarProduto(produto: ProdutoServico): Observable<ProdutoServico> {
-    return this.http.post<ProdutoServico>(`${this.API}/adicionarProduto`, produto);
+  adicionarProdutoLocal(produto: ProdutoServico): void {
+    this.produtos.push(produto);
+    console.log('Produto adicionado localmente:', produto);
   }
 
-  // Método para listar todos os produtos do back-end
+  getProdutos(): ProdutoServico[] {
+    return [...this.produtos];
+  }
+
+  adicionarProduto(produto: ProdutoServico): Observable<ProdutoServico> {
+    console.log('Produto a ser salvo:', produto);
+    return this.http.post<ProdutoServico>('URL_DO_BACKEND', produto);
+  }
+  
   listarProdutos(): Observable<ProdutoServico[]> {
-    return this.http.get<ProdutoServico[]>(`${this.API}/listarProdutos`);
+    return this.http.get<ProdutoServico[]>('URL_DO_BACKEND');
+  }
+
+  limparProdutos(): void {
+    this.produtos = [];
+    console.log('Produtos limpos localmente.');
   }
 }

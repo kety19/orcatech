@@ -1,9 +1,8 @@
-export class Emissor {
-  constructor(
-    public nome: string,
-    public telefone: string,
-    public email: string,
-    public endereco: string,
-    public cnpj: string
-  ) {}
+export interface Emissor {
+  nome: string;
+  telefone: string;
+  email: string;
+  endereco: string;
+  cnpj: string;
+  logoUrl?: string; 
 }

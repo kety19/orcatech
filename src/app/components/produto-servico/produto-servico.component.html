@@ -1,16 +1,35 @@
-<form>
-    <label for="nome">Nome:</label>
-    <input id="nome" [(ngModel)]="produto.nome" name="nome" required />
-  
-    <label for="descricao">Descrição:</label>
-    <input id="descricao" [(ngModel)]="produto.descricao" name="descricao" required />
-  
-    <label for="quantidade">Quantidade:</label>
-    <input type="number" id="quantidade" [(ngModel)]="produto.quantidade" name="quantidade" required />
-  
-    <label for="preco">Preço:</label>
-    <input type="number" id="preco" [(ngModel)]="produto.preco" name="preco" required />
-  
-    <button type="submit">Salvar Produto</button>
+<div class="add-product-container">
+  <h2>Cadastro de Produto e Serviço</h2>
+
+  <form>
+    <!-- Nome do Produto -->
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" placeholder="Digite o nome do produto ou serviço" />
+    </div>
+
+    <!-- Descrição -->
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <textarea id="descricao" placeholder="Digite a descrição"></textarea>
+    </div>
+
+    <!-- Quantidade -->
+    <div class="form-group">
+      <label for="quantidade">Quantidade</label>
+      <input id="quantidade" type="number" placeholder="Digite a quantidade" />
+    </div>
+
+    <!-- Preço -->
+    <div class="form-group">
+      <label for="preco">Preço</label>
+      <input id="preco" type="number" placeholder="Digite o preço" />
+    </div>
+
+    <!-- Ações -->
+    <div class="form-actions">
+      <button type="reset" class="btn">Limpar</button>
+      <button type="submit" class="btn btn-primary">Adicionar</button>
+    </div>
   </form>
-  
+</div>

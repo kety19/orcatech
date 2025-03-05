@@ -1,51 +1,93 @@
 import { Component, OnInit } from '@angular/core';
 import { OrcamentoService } from '../../services/orcamento/orcamento.service';
+import { EmissorService } from '../../services/emissor/emissor.service';
 import { Cliente } from '../../model/cliente.model';
 import { ProdutoServico } from '../../model/produto-servico.model';
-import { Emissor } from '../../model/emissor.model';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { Orcamento } from '../../model/orcamento.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-orcamento',
-  imports: [FormsModule, CommonModule],
+  standalone: true,
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './orcamento.component.html',
   styleUrls: ['./orcamento.component.scss'],
-  standalone: true,
 })
 export class OrcamentoComponent implements OnInit {
-  orcamento: Orcamento | null = null;
+  orcamentos: Orcamento[] = [];
+  clienteForm: FormGroup;
+  produtoForm: FormGroup;
+  feedbackMessage: string = '';
 
-  constructor(private orcamentoService: OrcamentoService) {}
+  constructor(
+    private orcamentoService: OrcamentoService,
+    private emissorService: EmissorService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar
+  ) {
+    this.clienteForm = this.fb.group({
+      nome: ['', Validators.required],
+      endereco: ['', Validators.required],
+      telefone: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      email: ['', [Validators.required, Validators.email]],
+    });
+
+    this.produtoForm = this.fb.group({
+      descricao: ['', Validators.required],
+      quantidade: [1, [Validators.required, Validators.min(1)]],
+      preco: [0, [Validators.required, Validators.min(0)]],
+    });
+  }
 
   ngOnInit(): void {
-    this.orcamento = this.orcamentoService.getOrcamento(); 
+    this.orcamentoService.getOrcamentos().subscribe({
+      next: (orcamentos) => {
+        console.log('Orçamentos recebidos:', orcamentos);
+        this.orcamentos = orcamentos;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar orçamentos:', err);
+      },
+    });
+
+    this.orcamentoService.feedback$.subscribe((message) => {
+      if (message) {
+        this.showConfirmation(message);
+      }
+    });
   }
 
   criarOrcamento(): void {
-    const emissor: Emissor = {
-      nome: 'Nome do Emissor',
-      telefone: '123456789',
-      email: 'emissor@empresa.com',
-      endereco: 'Endereço do Emissor',
-      cnpj: '12.345.678/0001-99',
-    };
-  
-    const cliente: Cliente = {
-      nome: 'Nome do Cliente',
-      endereco: 'Endereço do Cliente',
-      telefone: '987654321',
-      email: 'cliente@empresa.com',
-    };
-  
-    const observacao = 'Observação do orçamento';
-    const produtos: ProdutoServico[] = [
-      { nome: 'Produto 1', descricao: 'Descrição do Produto 1', quantidade: 1, preco: 100 },
-      { nome: 'Produto 2', descricao: 'Descrição do Produto 2', quantidade: 2, preco: 150 },
-    ];
-  
-    this.orcamentoService.criarOrcamento(emissor, cliente, observacao, produtos);
-    this.orcamento = this.orcamentoService.getOrcamento();
+    if (this.clienteForm.invalid || this.produtoForm.invalid) {
+      this.showConfirmation('Preencha todos os campos corretamente!');
+      return;
+    }
+
+    const cliente: Cliente = this.clienteForm.value;
+    const produtos: ProdutoServico[] = [this.produtoForm.value];
+    const emissor = this.emissorService.getEmissor();
+
+    if (!emissor) {
+      this.showConfirmation('Emissor não encontrado!');
+      return;
+    }
+
+    this.orcamentoService.criarOrcamento(emissor, cliente, 'Observação do orçamento', produtos);
+
+    // ✅ **Correção:** Atualiza os orçamentos logo após criar um novo
+    this.orcamentoService.getOrcamentos().subscribe((orcamentos) => {
+      this.orcamentos = orcamentos;
+    });
   }
-}  
+
+  showConfirmation(message: string) {
+    this.snackBar.open(message, 'Fechar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+    });
+  }
+}

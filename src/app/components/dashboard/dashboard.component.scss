@@ -1,0 +1,103 @@
+/* Estilos gerais do dashboard */
+.dashboard-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+/* Botões principais */
+.btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Estilos para a lista de orçamentos */
+.orcamentos-list {
+  margin-top: 20px;
+}
+
+.orcamento-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.orcamento-info {
+  font-size: 16px;
+  color: #555;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-left: 15px;
+  font-weight: bold;
+}
+
+.status-vendido {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-nao-vendido {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Estilos do container de ação */
+.action-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
